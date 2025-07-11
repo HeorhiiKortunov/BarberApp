@@ -1,9 +1,12 @@
-package com.example.demo.entities;
+package com.example.demo.persistence.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "barbers")
 public class Barbers {
 
 	@Id
@@ -15,7 +18,7 @@ public class Barbers {
 	private long userId;
 
 	@OneToMany(mappedBy = "barber", cascade = CascadeType.ALL)
-	private List<Appointments> barberAppointments;
+	private List<Appointments> barberAppointments = new ArrayList<>();
 
 	@Lob
 	@Basic(fetch = FetchType.LAZY)

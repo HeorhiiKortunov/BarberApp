@@ -1,4 +1,4 @@
-package com.example.demo.entities;
+package com.example.demo.persistence.entity;
 
 import jakarta.persistence.*;
 
@@ -23,7 +23,7 @@ public class Users {
 	private String role;
 
 	@OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
-	private List<Appointments> customerAppointments;
+	private List<Appointments> customerAppointments = new ArrayList<>();
 
 	public Users() {}
 
