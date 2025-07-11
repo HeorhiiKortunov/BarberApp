@@ -20,22 +20,22 @@ public class Users {
 	private String email;
 	private String phone;
 	private boolean enabled;
+	private String role;
 
 	@OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
 	private List<Appointments> customerAppointments;
 
-	@OneToMany(mappedBy = "barber", cascade = CascadeType.ALL)
-	private List<Appointments> barberAppointments;
-
 	public Users() {}
 
-	public Users(long id, String username, String password, String email, String phone, boolean enabled) {
+	public Users(long id, String username, String password, String email, String phone, boolean enabled, String role, List<Appointments> customerAppointments) {
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.email = email;
 		this.phone = phone;
 		this.enabled = enabled;
+		this.role = role;
+		this.customerAppointments = customerAppointments;
 	}
 
 	public long getId() {
@@ -84,5 +84,21 @@ public class Users {
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public List<Appointments> getCustomerAppointments() {
+		return customerAppointments;
+	}
+
+	public void setCustomerAppointments(List<Appointments> customerAppointments) {
+		this.customerAppointments = customerAppointments;
 	}
 }
