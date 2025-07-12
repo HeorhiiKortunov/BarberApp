@@ -15,7 +15,7 @@ public class Barbers {
 
 	@OneToOne
 	@JoinColumn(name = "user_id", nullable = false)
-	private long userId;
+	private Users user;
 
 	@OneToMany(mappedBy = "barber", cascade = CascadeType.ALL)
 	private List<Appointments> barberAppointments = new ArrayList<>();
@@ -29,9 +29,9 @@ public class Barbers {
 
 	public Barbers() {}
 
-	public Barbers(long id, long userId, List<Appointments> barberAppointments, byte[] pfp, String bio, int price) {
+	public Barbers(long id, Users user, List<Appointments> barberAppointments, byte[] pfp, String bio, int price) {
 		this.id = id;
-		this.userId = userId;
+		this.user = user;
 		this.barberAppointments = barberAppointments;
 		this.pfp = pfp;
 		this.bio = bio;
@@ -46,12 +46,12 @@ public class Barbers {
 		this.id = id;
 	}
 
-	public long getUserId() {
-		return userId;
+	public Users getUser() {
+		return user;
 	}
 
-	public void setUserId(long userId) {
-		this.userId = userId;
+	public void setUser(Users user) {
+		this.user = user;
 	}
 
 	public List<Appointments> getBarberAppointments() {
