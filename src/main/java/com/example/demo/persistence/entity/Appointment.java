@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "appointments")
-public class Appointments {
+public class Appointment {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,18 +14,18 @@ public class Appointments {
 
 	@ManyToOne
 	@JoinColumn(name = "barber_id")
-	private Barbers barber;
+	private Barber barber;
 
 	@OneToOne
 	@JoinColumn(name = "customer_id")
-	private Users customer;
+	private User customer;
 
 	@Column(nullable = false)
 	private LocalDateTime appointmentDateTime;
 
-	public Appointments() {}
+	public Appointment() {}
 
-	public Appointments(long id, Barbers barber, Users customer, LocalDateTime appointmentDateTime) {
+	public Appointment(long id, Barber barber, User customer, LocalDateTime appointmentDateTime) {
 		this.id = id;
 		this.barber = barber;
 		this.customer = customer;
@@ -40,19 +40,19 @@ public class Appointments {
 		this.id = id;
 	}
 
-	public Barbers getBarber() {
+	public Barber getBarber() {
 		return barber;
 	}
 
-	public void setBarber(Barbers barber) {
+	public void setBarber(Barber barber) {
 		this.barber = barber;
 	}
 
-	public Users getCustomer() {
+	public User getCustomer() {
 		return customer;
 	}
 
-	public void setCustomer(Users customer) {
+	public void setCustomer(User customer) {
 		this.customer = customer;
 	}
 

@@ -4,7 +4,7 @@ import com.example.demo.api.dto.request.user.CreateUserDto;
 import com.example.demo.api.dto.request.user.UpdateUserDto;
 import com.example.demo.api.dto.response.user.UserResponseDto;
 import com.example.demo.mapper.UserMapper;
-import com.example.demo.persistence.entity.Users;
+import com.example.demo.persistence.entity.User;
 import com.example.demo.persistence.repository.UserRepository;
 import com.example.demo.service.UserService;
 import jakarta.transaction.Transactional;
@@ -38,11 +38,11 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserResponseDto updateUser(String username, UpdateUserDto updateUserDto) {
-		Users user = userRepository.findByUsername(username)
+		User user = userRepository.findByUsername(username)
 				.orElseThrow(() -> new RuntimeException("User not found"));
 
 		userMapper.updateEntityFromDto(user, updateUserDto);
-		Users updatedUser = userRepository.save(user);
+		User updatedUser = userRepository.save(user);
 
 		return userMapper.toResponseDto(updatedUser);
 	}
@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void createUser(CreateUserDto createUserDto) {
-		Users user = new Users();
+		User user = new User();
 		user.setUsername(createUserDto.username());
 		//TODO: encrypt logic
 		user.setPassword(createUserDto.password());

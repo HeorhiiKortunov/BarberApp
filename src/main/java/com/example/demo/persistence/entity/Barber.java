@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "barbers")
-public class Barbers {
+public class Barber {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,17 +15,17 @@ public class Barbers {
 
 	@OneToOne
 	@JoinColumn(name = "user_id", nullable = false)
-	private Users user;
+	private User user;
 
 	@OneToMany(mappedBy = "barber", cascade = CascadeType.ALL)
-	private List<Appointments> barberAppointments = new ArrayList<>();
+	private List<Appointment> barberAppointments = new ArrayList<>();
 
 	private String bio;
 	private int price;
 
-	public Barbers() {}
+	public Barber() {}
 
-	public Barbers(long id, Users user, List<Appointments> barberAppointments, String bio, int price) {
+	public Barber(long id, User user, List<Appointment> barberAppointments, String bio, int price) {
 		this.id = id;
 		this.user = user;
 		this.barberAppointments = barberAppointments;
@@ -41,19 +41,19 @@ public class Barbers {
 		this.id = id;
 	}
 
-	public Users getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(Users user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 
-	public List<Appointments> getBarberAppointments() {
+	public List<Appointment> getBarberAppointments() {
 		return barberAppointments;
 	}
 
-	public void setBarberAppointments(List<Appointments> barberAppointments) {
+	public void setBarberAppointments(List<Appointment> barberAppointments) {
 		this.barberAppointments = barberAppointments;
 	}
 

@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
-public class Users {
+public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,11 +23,11 @@ public class Users {
 	private String role;
 
 	@OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
-	private List<Appointments> customerAppointments = new ArrayList<>();
+	private List<Appointment> customerAppointments = new ArrayList<>();
 
-	public Users() {}
+	public User() {}
 
-	public Users(long id, String username, String password, String email, String phone, boolean enabled, String role, List<Appointments> customerAppointments) {
+	public User(long id, String username, String password, String email, String phone, boolean enabled, String role, List<Appointment> customerAppointments) {
 		this.id = id;
 		this.username = username;
 		this.password = password;
@@ -94,11 +94,11 @@ public class Users {
 		this.role = role;
 	}
 
-	public List<Appointments> getCustomerAppointments() {
+	public List<Appointment> getCustomerAppointments() {
 		return customerAppointments;
 	}
 
-	public void setCustomerAppointments(List<Appointments> customerAppointments) {
+	public void setCustomerAppointments(List<Appointment> customerAppointments) {
 		this.customerAppointments = customerAppointments;
 	}
 }
