@@ -1,7 +1,9 @@
 package com.example.demo.api.dto.request.barber;
 
+import com.example.demo.persistence.entity.User;
+
 public record CreateBarberDto(
-		long userId,
+		User user,
 		String bio,
 		int price
 ) {}
