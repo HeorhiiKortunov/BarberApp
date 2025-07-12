@@ -1,12 +1,13 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.api.dto.request.CreateUserDto;
-import com.example.demo.api.dto.request.UpdateUserDto;
-import com.example.demo.api.dto.response.UserResponseDto;
+import com.example.demo.api.dto.request.user.CreateUserDto;
+import com.example.demo.api.dto.request.user.UpdateUserDto;
+import com.example.demo.api.dto.response.user.UserResponseDto;
 import com.example.demo.mapper.UserMapper;
 import com.example.demo.persistence.entity.Users;
 import com.example.demo.persistence.repository.UserRepository;
 import com.example.demo.service.UserService;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
 	private final UserRepository userRepository;
@@ -63,5 +65,10 @@ public class UserServiceImpl implements UserService {
 		user.setPhone(createUserDto.phone());
 		user.setRole(createUserDto.role());
 		user.setEnabled(true);
+	}
+
+	@Override
+	public void deleteByUsername(String username) {
+		userRepository.deleteByUsername(username);
 	}
 }

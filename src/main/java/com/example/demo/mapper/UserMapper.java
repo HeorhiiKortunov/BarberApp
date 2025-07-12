@@ -1,8 +1,8 @@
 package com.example.demo.mapper;
 
-import com.example.demo.api.dto.request.CreateUserDto;
-import com.example.demo.api.dto.request.UpdateUserDto;
-import com.example.demo.api.dto.response.UserResponseDto;
+import com.example.demo.api.dto.request.user.CreateUserDto;
+import com.example.demo.api.dto.request.user.UpdateUserDto;
+import com.example.demo.api.dto.response.user.UserResponseDto;
 import com.example.demo.persistence.entity.Users;
 import org.springframework.stereotype.Component;
 
