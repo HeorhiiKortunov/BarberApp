@@ -30,8 +30,8 @@ public class UserMapper {
 	}
 
 	public void updateEntityFromDto(Users user, UpdateUserDto dto) {
-		if (dto.email() != null) user.setEmail(dto.email());
-		if (dto.phone() != null) user.setPhone(dto.phone());
-		if (dto.enabled() != null) user.setEnabled(dto.enabled());
+		if (dto.getEmail() != null) user.setEmail(dto.getEmail());
+		if (dto.getPhone() != null) user.setPhone(dto.getPhone());
+		if (dto.getEnabled() != null) user.setEnabled(dto.getEnabled());
 	}
 }

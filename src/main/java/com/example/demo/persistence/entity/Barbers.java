@@ -20,20 +20,15 @@ public class Barbers {
 	@OneToMany(mappedBy = "barber", cascade = CascadeType.ALL)
 	private List<Appointments> barberAppointments = new ArrayList<>();
 
-	@Lob
-	@Basic(fetch = FetchType.LAZY)
-	private byte[] pfp;
-
 	private String bio;
 	private int price;
 
 	public Barbers() {}
 
-	public Barbers(long id, Users user, List<Appointments> barberAppointments, byte[] pfp, String bio, int price) {
+	public Barbers(long id, Users user, List<Appointments> barberAppointments, String bio, int price) {
 		this.id = id;
 		this.user = user;
 		this.barberAppointments = barberAppointments;
-		this.pfp = pfp;
 		this.bio = bio;
 		this.price = price;
 	}
@@ -60,14 +55,6 @@ public class Barbers {
 
 	public void setBarberAppointments(List<Appointments> barberAppointments) {
 		this.barberAppointments = barberAppointments;
-	}
-
-	public byte[] getPfp() {
-		return pfp;
-	}
-
-	public void setPfp(byte[] pfp) {
-		this.pfp = pfp;
 	}
 
 	public String getBio() {
