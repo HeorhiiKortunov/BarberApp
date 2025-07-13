@@ -21,9 +21,9 @@ import java.util.stream.Collectors;
 @Transactional
 public class BarberServiceImpl implements BarberService {
 
-	BarberRepository barberRepository;
-	UserRepository userRepository;
-	BarberMapper barberMapper;
+	private final BarberRepository barberRepository;
+	private final UserRepository userRepository;
+	private final BarberMapper barberMapper;
 
 	public BarberServiceImpl(BarberMapper barberMapper, BarberRepository barberRepository, UserRepository userRepository) {
 		this.barberMapper = barberMapper;
