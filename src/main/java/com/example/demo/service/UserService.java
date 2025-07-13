@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
-    Optional<UserResponseDto> findById(Long id);
+    Optional<UserResponseDto> findById(long id);
 	UserResponseDto updateUser(long id, UpdateUserDto dto);
-    List<UserResponseDto> getAllUsers();
+    List<UserResponseDto> findAllUsers();
     UserResponseDto createUser(CreateUserDto dto);
 	void deleteById(long id);
 }

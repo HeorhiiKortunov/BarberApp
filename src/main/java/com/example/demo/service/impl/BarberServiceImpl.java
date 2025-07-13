@@ -36,7 +36,7 @@ public class BarberServiceImpl implements BarberService {
 		return barberRepository.findAll()
 				.stream()
 				.map(barberMapper::toResponseDto)
-				.collect(Collectors.toList());
+				.toList();
 	}
 
 	@Override
@@ -51,24 +51,15 @@ public class BarberServiceImpl implements BarberService {
 
 		if(dto.getBio() != null) barber.setBio(dto.getBio());
 		if(dto.getPrice() != null) barber.setPrice(dto.getPrice());
-		barberRepository.save(barber);
+		Barber savedBarber = barberRepository.save(barber);
 
-		return barberMapper.toResponseDto(barber);
+		return barberMapper.toResponseDto(savedBarber);
 	}
 
 	@Override
 	public BarberResponseDto createBarber(CreateBarberDto dto) {
-		User user = userRepository.findById(dto.userId())
-				.orElseThrow(() -> new RuntimeException("User not found with id " + dto.userId()));
-
-		Barber barber = new Barber();
-		barber.setUser(user);
-		barber.setBio(dto.bio());
-		barber.setPrice(dto.price());
-		barber.setBarberAppointments(new ArrayList<>());
-
+		Barber barber = barberMapper.fromCreateDto(dto);
 		Barber savedBarber = barberRepository.save(barber);
-
 		return barberMapper.toResponseDto(savedBarber);
 	}
 

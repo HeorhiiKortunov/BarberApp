@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Optional<UserResponseDto> findById(Long id) {
+	public Optional<UserResponseDto> findById(long id) {
 		return userRepository.findById(id).map(userMapper::toResponseDto);
 	}
 
@@ -37,31 +37,25 @@ public class UserServiceImpl implements UserService {
 				.orElseThrow(() -> new RuntimeException("User not found"));
 
 		userMapper.updateEntityFromDto(user, dto);
-		User updatedUser = userRepository.save(user);
+		User savedUser = userRepository.save(user);
 
-		return userMapper.toResponseDto(updatedUser);
+		return userMapper.toResponseDto(savedUser);
 	}
 
 	@Override
-	public List<UserResponseDto> getAllUsers() {
+	public List<UserResponseDto> findAllUsers() {
 		return userRepository.findAll()
 				.stream()
 				.map(userMapper::toResponseDto)
-				.collect(Collectors.toList());
+				.toList();
 	}
 
 	@Override
 	public UserResponseDto createUser(CreateUserDto dto) {
-		User user = new User();
-		user.setUsername(dto.username());
-		//TODO: encrypt logic
-		user.setPassword(dto.password());
-		user.setEmail(dto.email());
-		user.setPhone(dto.phone());
-		user.setRole(dto.role());
-		user.setEnabled(true);
-		userRepository.save(user);
-		return userMapper.toResponseDto(user);
+		//TODO: encrypt password
+		User user = userMapper.fromCreateDto(dto, dto.password());
+		User savedUser = userRepository.save(user);
+		return userMapper.toResponseDto(savedUser);
 	}
 
 	@Override
