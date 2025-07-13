@@ -4,7 +4,7 @@ import com.example.demo.persistence.entity.User;
 
 public record BarberResponseDto(
 		long id,
-		User user,
+		long userId,
 		String bio,
 		int price
 ) {}
