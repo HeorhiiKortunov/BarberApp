@@ -32,13 +32,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Optional<UserResponseDto> findByUsername(String username) {
-		return userRepository.findByUsername(username).map(userMapper::toResponseDto);
-	}
-
-	@Override
-	public UserResponseDto updateUser(String username, UpdateUserDto updateUserDto) {
-		User user = userRepository.findByUsername(username)
+	public UserResponseDto updateUser(long id, UpdateUserDto updateUserDto) {
+		User user = userRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("User not found"));
 
 		userMapper.updateEntityFromDto(user, updateUserDto);
@@ -56,7 +51,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void createUser(CreateUserDto createUserDto) {
+	public UserResponseDto createUser(CreateUserDto createUserDto) {
 		User user = new User();
 		user.setUsername(createUserDto.username());
 		//TODO: encrypt logic
@@ -65,10 +60,12 @@ public class UserServiceImpl implements UserService {
 		user.setPhone(createUserDto.phone());
 		user.setRole(createUserDto.role());
 		user.setEnabled(true);
+		userRepository.save(user);
+		return userMapper.toResponseDto(user);
 	}
 
 	@Override
-	public void deleteByUsername(String username) {
-		userRepository.deleteByUsername(username);
+	public void deleteById(long id) {
+		userRepository.deleteById(id);
 	}
 }

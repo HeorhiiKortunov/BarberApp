@@ -10,9 +10,8 @@ import java.util.Optional;
 
 public interface UserService {
     Optional<UserResponseDto> findById(Long id);
-	Optional<UserResponseDto> findByUsername(String username);
-	UserResponseDto updateUser(String username, UpdateUserDto userResponseDto);
+	UserResponseDto updateUser(long id, UpdateUserDto userResponseDto);
     List<UserResponseDto> getAllUsers();
-    void createUser(CreateUserDto userResponseDto);
-	void deleteByUsername(String username);
+    UserResponseDto createUser(CreateUserDto dto);
+	void deleteById(long id);
 }
