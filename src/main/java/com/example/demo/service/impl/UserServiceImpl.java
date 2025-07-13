@@ -32,11 +32,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserResponseDto updateUser(long id, UpdateUserDto updateUserDto) {
+	public UserResponseDto updateUser(long id, UpdateUserDto dto) {
 		User user = userRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("User not found"));
 
-		userMapper.updateEntityFromDto(user, updateUserDto);
+		userMapper.updateEntityFromDto(user, dto);
 		User updatedUser = userRepository.save(user);
 
 		return userMapper.toResponseDto(updatedUser);
@@ -51,14 +51,14 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserResponseDto createUser(CreateUserDto createUserDto) {
+	public UserResponseDto createUser(CreateUserDto dto) {
 		User user = new User();
-		user.setUsername(createUserDto.username());
+		user.setUsername(dto.username());
 		//TODO: encrypt logic
-		user.setPassword(createUserDto.password());
-		user.setEmail(createUserDto.email());
-		user.setPhone(createUserDto.phone());
-		user.setRole(createUserDto.role());
+		user.setPassword(dto.password());
+		user.setEmail(dto.email());
+		user.setPhone(dto.phone());
+		user.setRole(dto.role());
 		user.setEnabled(true);
 		userRepository.save(user);
 		return userMapper.toResponseDto(user);
