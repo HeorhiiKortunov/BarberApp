@@ -23,11 +23,11 @@ public class User {
 	private String role;
 
 	@OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
-	private List<Appointment> customerAppointments = new ArrayList<>();
+	private Appointment customerAppointment;
 
 	public User() {}
 
-	public User(long id, String username, String password, String email, String phone, boolean enabled, String role, List<Appointment> customerAppointments) {
+	public User(long id, String username, String password, String email, String phone, boolean enabled, String role, Appointment customerAppointment) {
 		this.id = id;
 		this.username = username;
 		this.password = password;
@@ -35,7 +35,7 @@ public class User {
 		this.phone = phone;
 		this.enabled = enabled;
 		this.role = role;
-		this.customerAppointments = customerAppointments;
+		this.customerAppointment = customerAppointment;
 	}
 
 	public long getId() {
@@ -94,11 +94,11 @@ public class User {
 		this.role = role;
 	}
 
-	public List<Appointment> getCustomerAppointments() {
-		return customerAppointments;
+	public Appointment getCustomerAppointment() {
+		return customerAppointment;
 	}
 
-	public void setCustomerAppointments(List<Appointment> customerAppointments) {
-		this.customerAppointments = customerAppointments;
+	public void setCustomerAppointment(Appointment customerAppointment) {
+		this.customerAppointment = customerAppointment;
 	}
 }
