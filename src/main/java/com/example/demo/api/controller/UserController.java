@@ -25,14 +25,17 @@ public class UserController {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<UserResponseDto> findUser(@PathVariable Long id) {
-		Optional<UserResponseDto> userOpt = userService.findById(id);
-		return userOpt.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+		return userService.findById(id)
+				.map(ResponseEntity::ok)
+				.orElse(ResponseEntity.notFound().build());
 	}
 
 	@GetMapping
 	public ResponseEntity<List<UserResponseDto>> findAllUsers(){
 		return ResponseEntity.ok(userService.findAllUsers());
 	}
+
+	//TODO: /user/me
 
 	@PostMapping
 	public ResponseEntity<UserResponseDto> createUser(@RequestBody CreateUserDto dto){
