@@ -16,8 +16,4 @@ public class UpdateAppointmentDto {
 	public LocalDateTime getAppointmentDateTme() {
 		return appointmentDateTme;
 	}
-
-	public void setAppointmentDateTme(LocalDateTime appointmentDateTme) {
-		this.appointmentDateTme = appointmentDateTme;
-	}
 }

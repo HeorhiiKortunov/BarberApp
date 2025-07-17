@@ -15,16 +15,8 @@ public class UpdateBarberDto {
 		return bio;
 	}
 
-	public void setBio(String bio) {
-		this.bio = bio;
-	}
-
 	public Integer getPrice() {
 		return price;
-	}
-
-	public void setPrice(Integer price) {
-		this.price = price;
 	}
 
 }
