@@ -22,37 +22,5 @@ public class UserController {
 	public UserController(UserService userService) {
 		this.userService = userService;
 	}
-
-	@GetMapping("/{id}")
-	public ResponseEntity<UserResponseDto> findUser(@PathVariable Long id) {
-		return userService.findById(id)
-				.map(ResponseEntity::ok)
-				.orElse(ResponseEntity.notFound().build());
-	}
-
-	@GetMapping
-	public ResponseEntity<List<UserResponseDto>> findAllUsers(){
-		return ResponseEntity.ok(userService.findAllUsers());
-	}
-
 	//TODO: /user/me
-
-	@PostMapping
-	public ResponseEntity<UserResponseDto> createUser(@RequestBody CreateUserDto dto){
-		UserResponseDto responseDto = userService.createUser(dto);
-		URI location = URI.create("/api/user/" + responseDto.id());
-		return ResponseEntity.created(location).body(responseDto);
-	}
-
-	@PatchMapping("/{id}")
-	public ResponseEntity<UserResponseDto> updateUser(@PathVariable Long id, @RequestBody UpdateUserDto dto){
-		return ResponseEntity.ok(userService.updateUser(id, dto));
-	}
-
-	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> deleteUser(@PathVariable Long id){
-		userService.deleteById(id);
-		return ResponseEntity.noContent().build();
-	}
-
 }

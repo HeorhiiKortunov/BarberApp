@@ -17,32 +17,5 @@ public class BarberController {
 	public BarberController(BarberService barberService) {
 		this.barberService = barberService;
 	}
-
-	@GetMapping("/{id}")
-	public ResponseEntity<BarberResponseDto> findBarber(@PathVariable Long id){
-		return barberService.findById(id)
-				.map(ResponseEntity::ok)
-				.orElse(ResponseEntity.notFound().build());
-	}
-
-	@PostMapping
-	public ResponseEntity<BarberResponseDto> createBarber(@RequestBody CreateBarberDto dto){
-		return ResponseEntity.ok(barberService.createBarber(dto));
-	}
-
-	@GetMapping
-	public ResponseEntity<List<BarberResponseDto>> findAllBarbers(){
-		return ResponseEntity.ok(barberService.findAllBarbers());
-	}
-
-	@PatchMapping("/{id}")
-	public ResponseEntity<BarberResponseDto> updateBarber(@PathVariable Long id, @RequestBody UpdateBarberDto dto){
-		return ResponseEntity.ok(barberService.updateBarber(id, dto));
-	}
-
-	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> deleteBarber(@PathVariable Long id){
-		barberService.deleteById(id);
-		return ResponseEntity.noContent().build();
-	}
+	//TODO: /barber/me
 }
