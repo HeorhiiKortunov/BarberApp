@@ -1,10 +1,15 @@
 package com.example.demo.mapper;
 
+import com.example.demo.api.controller.AuthController;
 import com.example.demo.api.dto.request.user.CreateUserDto;
 import com.example.demo.api.dto.request.user.UpdateUserDto;
 import com.example.demo.api.dto.response.user.UserResponseDto;
+import com.example.demo.persistence.entity.Authority;
 import com.example.demo.persistence.entity.User;
+import com.example.demo.persistence.repository.AuthorityRepository;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class UserMapper {
@@ -16,7 +21,13 @@ public class UserMapper {
 		user.setPhone(dto.phone());
 		user.setPassword(encodedPassword);
 		user.setEnabled(true);
-		user.setRole(dto.role() != null ? dto.role() : "ROLE_CUSTOMER");
+		List<Authority> authorities = (dto.authorities() != null && !dto.authorities().isEmpty())
+				? dto.authorities().stream()
+				.map(roleName -> new Authority(null, roleName, user))
+				.toList()
+				: List.of(new Authority(null, "ROLE_CUSTOMER", user));
+
+		user.setAuthorities(authorities);
 		return user;
 	}
 

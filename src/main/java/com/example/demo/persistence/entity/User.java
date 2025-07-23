@@ -28,7 +28,9 @@ public class User {
 	private String email;
 	private String phone;
 	private boolean enabled;
-	private String role;
+
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<Authority> authorities = new ArrayList<>();
 
 	@OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
 	private Appointment customerAppointment;
