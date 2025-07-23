@@ -8,18 +8,14 @@ import com.example.demo.persistence.entity.Barber;
 import com.example.demo.persistence.entity.User;
 import com.example.demo.persistence.repository.BarberRepository;
 import com.example.demo.persistence.repository.UserRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@AllArgsConstructor
 public class AppointmentMapper {
-
-	UserRepository userRepository;
-	BarberRepository barberRepository;
-
-	public AppointmentMapper(UserRepository userRepository, BarberRepository barberRepository) {
-		this.userRepository = userRepository;
-		this.barberRepository = barberRepository;
-	}
+	private final UserRepository userRepository;
+	private final BarberRepository barberRepository;
 
 
 	public Appointment fromCreateDto(CreateAppointmentDto dto){

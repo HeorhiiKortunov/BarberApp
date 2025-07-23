@@ -10,6 +10,7 @@ import com.example.demo.persistence.repository.BarberRepository;
 import com.example.demo.persistence.repository.UserRepository;
 import com.example.demo.service.BarberService;
 import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,17 +20,13 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@AllArgsConstructor
 public class BarberServiceImpl implements BarberService {
 
 	private final BarberRepository barberRepository;
 	private final UserRepository userRepository;
 	private final BarberMapper barberMapper;
 
-	public BarberServiceImpl(BarberMapper barberMapper, BarberRepository barberRepository, UserRepository userRepository) {
-		this.barberMapper = barberMapper;
-		this.barberRepository = barberRepository;
-		this.userRepository = userRepository;
-	}
 
 	@Override
 	public List<BarberResponseDto> findAllBarbers() {

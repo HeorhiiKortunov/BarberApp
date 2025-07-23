@@ -8,6 +8,7 @@ import com.example.demo.persistence.entity.User;
 import com.example.demo.persistence.repository.UserRepository;
 import com.example.demo.service.UserService;
 import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,15 +17,11 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@AllArgsConstructor
 public class UserServiceImpl implements UserService {
 
 	private final UserRepository userRepository;
 	private final UserMapper userMapper;
-
-	public UserServiceImpl(UserRepository userRepository, UserMapper userMapper) {
-		this.userRepository = userRepository;
-		this.userMapper = userMapper;
-	}
 
 	@Override
 	public Optional<UserResponseDto> findById(long id) {

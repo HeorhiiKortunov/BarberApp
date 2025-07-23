@@ -1,22 +1,13 @@
 package com.example.demo.api.dto.request.barber;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
 public class UpdateBarberDto {
 	private String bio;
 	private Integer price;
-
-	public UpdateBarberDto() {}
-
-	public UpdateBarberDto(String bio, Integer price) {
-		this.bio = bio;
-		this.price = price;
-	}
-
-	public String getBio() {
-		return bio;
-	}
-
-	public Integer getPrice() {
-		return price;
-	}
-
 }

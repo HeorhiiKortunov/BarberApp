@@ -6,18 +6,14 @@ import com.example.demo.api.dto.response.barber.BarberResponseDto;
 import com.example.demo.persistence.entity.Barber;
 import com.example.demo.persistence.entity.User;
 import com.example.demo.persistence.repository.UserRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
+@AllArgsConstructor
 public class BarberMapper {
-
 	private final UserRepository userRepository;
-
-
-	public BarberMapper(UserRepository userRepository) {
-		this.userRepository = userRepository;
-	}
 
 	public Barber fromCreateDto(CreateBarberDto dto){
 		Barber barber = new Barber();

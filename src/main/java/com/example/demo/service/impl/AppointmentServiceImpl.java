@@ -10,6 +10,7 @@ import com.example.demo.persistence.repository.BarberRepository;
 import com.example.demo.persistence.repository.UserRepository;
 import com.example.demo.service.AppointmentService;
 import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,10 +18,11 @@ import java.util.Optional;
 
 @Service
 @Transactional
+@AllArgsConstructor
 public class AppointmentServiceImpl implements AppointmentService {
 
-	AppointmentRepository appointmentRepository;
-	AppointmentMapper appointmentMapper;
+	private final AppointmentRepository appointmentRepository;
+	private final AppointmentMapper appointmentMapper;
 
 	@Override
 	public List<AppointmentResponseDto> findAllAppointments() {

@@ -7,6 +7,7 @@ import com.example.demo.api.dto.response.barber.BarberResponseDto;
 import com.example.demo.api.dto.response.user.UserResponseDto;
 import com.example.demo.service.BarberService;
 import com.example.demo.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,14 +15,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/admin")
+@RequiredArgsConstructor
 public class AdminController {
 	private final BarberService barberService;
 	private final UserService userService;
-
-	public AdminController(BarberService barberService, UserService userService) {
-		this.barberService = barberService;
-		this.userService = userService;
-	}
 
 	@GetMapping("/user/{id}")
 	public ResponseEntity<UserResponseDto> findUser(@PathVariable Long id) {
