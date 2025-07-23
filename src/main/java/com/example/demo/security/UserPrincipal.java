@@ -6,27 +6,27 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.List;
 
 @Getter
 @Builder
-public class UsePrincipal implements UserDetails {
+public class UserPrincipal implements UserDetails {
 	private final long userId;
-	private final String email;
+	private final String username;
+	private final  Collection<? extends GrantedAuthority> authorities;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return List.of();
+		return authorities;
 	}
 
 	@Override
 	public String getPassword() {
-		return "";
+		return null;
 	}
 
 	@Override
 	public String getUsername() {
-		return "";
+		return username;
 	}
 
 	@Override

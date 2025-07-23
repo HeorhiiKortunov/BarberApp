@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -26,7 +27,7 @@ public class AuthController {
 
 	@PostMapping("/login")
 	public LoginResponse login(@RequestBody @Validated LoginRequest request){
-		var token = jwtIssuer.issue(1L, request.username(), "ROLE_USER");
+		var token = jwtIssuer.issue(1L, request.username(), List.of("ROLE_USER"));
 		return new LoginResponse(token);
 	}
 
