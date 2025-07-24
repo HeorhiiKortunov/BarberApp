@@ -1,5 +1,6 @@
 package com.example.demo.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,6 +25,7 @@ public class User {
 	@Column(nullable = false, unique = true)
 	private String username;
 
+	@JsonIgnore
 	private String password;
 	private String email;
 	private String phone;

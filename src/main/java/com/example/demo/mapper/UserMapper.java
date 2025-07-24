@@ -1,12 +1,10 @@
 package com.example.demo.mapper;
 
-import com.example.demo.api.controller.AuthController;
 import com.example.demo.api.dto.request.user.CreateUserDto;
 import com.example.demo.api.dto.request.user.UpdateUserDto;
 import com.example.demo.api.dto.response.user.UserResponseDto;
 import com.example.demo.persistence.entity.Authority;
 import com.example.demo.persistence.entity.User;
-import com.example.demo.persistence.repository.AuthorityRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

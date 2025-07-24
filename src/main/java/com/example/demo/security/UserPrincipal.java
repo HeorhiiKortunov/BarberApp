@@ -1,5 +1,6 @@
 package com.example.demo.security;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,6 +14,8 @@ public class UserPrincipal implements UserDetails {
 	private final long userId;
 	private final String username;
 	private final  Collection<? extends GrantedAuthority> authorities;
+	@JsonIgnore
+	private final String password;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -21,7 +24,7 @@ public class UserPrincipal implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		return null;
+		return password;
 	}
 
 	@Override
