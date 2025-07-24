@@ -1,9 +1,6 @@
 package com.example.demo.api.controller;
 
 import com.example.demo.api.dto.response.appointment.AppointmentResponseDto;
-import com.example.demo.persistence.entity.Appointment;
-import com.example.demo.persistence.repository.AppointmentRepository;
-import com.example.demo.persistence.repository.BarberRepository;
 import com.example.demo.security.UserPrincipal;
 import com.example.demo.service.AppointmentService;
 import com.example.demo.service.BarberService;

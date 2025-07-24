@@ -5,7 +5,6 @@ import com.example.demo.api.dto.request.barber.UpdateBarberDto;
 import com.example.demo.api.dto.response.barber.BarberResponseDto;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface BarberService {
 	List<BarberResponseDto> findAllBarbers();

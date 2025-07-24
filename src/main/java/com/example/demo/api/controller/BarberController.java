@@ -1,18 +1,13 @@
 package com.example.demo.api.controller;
 
-import com.example.demo.api.dto.request.barber.CreateBarberDto;
 import com.example.demo.api.dto.request.barber.UpdateBarberDto;
-import com.example.demo.api.dto.request.user.UpdateUserDto;
 import com.example.demo.api.dto.response.barber.BarberResponseDto;
-import com.example.demo.api.dto.response.user.UserResponseDto;
 import com.example.demo.security.UserPrincipal;
 import com.example.demo.service.BarberService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/barber")

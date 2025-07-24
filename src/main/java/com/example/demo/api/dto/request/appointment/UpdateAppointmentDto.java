@@ -1,7 +1,6 @@
 package com.example.demo.api.dto.request.appointment;
 
 import com.example.demo.enums.AppointmentStatus;
-import com.example.demo.persistence.entity.Barber;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
