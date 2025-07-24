@@ -9,8 +9,9 @@ import java.util.Optional;
 
 public interface BarberService {
 	List<BarberResponseDto> findAllBarbers();
-	Optional<BarberResponseDto> findById(long id);
+	BarberResponseDto findById(long id);
 	BarberResponseDto updateBarber(long id, UpdateBarberDto dto);
 	BarberResponseDto createBarber(CreateBarberDto dto);
+	BarberResponseDto findByUserId(long id);
 	void deleteById(long id);
 }

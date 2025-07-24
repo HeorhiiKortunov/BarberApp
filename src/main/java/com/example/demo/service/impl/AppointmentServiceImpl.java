@@ -3,6 +3,8 @@ package com.example.demo.service.impl;
 import com.example.demo.api.dto.request.appointment.CreateAppointmentDto;
 import com.example.demo.api.dto.request.appointment.UpdateAppointmentDto;
 import com.example.demo.api.dto.response.appointment.AppointmentResponseDto;
+import com.example.demo.enums.AppointmentStatus;
+import com.example.demo.exeption.ResourceNotFoundException;
 import com.example.demo.mapper.AppointmentMapper;
 import com.example.demo.persistence.entity.Appointment;
 import com.example.demo.persistence.repository.AppointmentRepository;
@@ -33,8 +35,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 	}
 
 	@Override
-	public Optional<AppointmentResponseDto> findById(long id) {
-		return appointmentRepository.findById(id).map(appointmentMapper::toResponseDto);
+	public AppointmentResponseDto findById(long id) {
+		return appointmentRepository.findById(id).map(appointmentMapper::toResponseDto)
+				.orElseThrow(() -> new ResourceNotFoundException("Appointment not found"));
 	}
 
 	@Override
@@ -46,8 +49,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 	}
 
 	@Override
-	public Optional<AppointmentResponseDto> findByCustomerId(long id) {
-		return appointmentRepository.findByCustomerId(id).map(appointmentMapper::toResponseDto);
+	public AppointmentResponseDto findByCustomerId(long id) {
+		return appointmentRepository.findByCustomerId(id).map(appointmentMapper::toResponseDto)
+				.orElseThrow(() -> new ResourceNotFoundException("Appointment not found"));
 	}
 
 	@Override
@@ -64,6 +68,26 @@ public class AppointmentServiceImpl implements AppointmentService {
 		Appointment savedAppointment = appointmentRepository.save(appointment);
 
 		return appointmentMapper.toResponseDto(savedAppointment);
+	}
+
+	@Override
+	public AppointmentResponseDto cancelAppointmentByBarber(Long id) {
+		Appointment appointment = appointmentRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("Appointment not found"));
+		appointment.setStatus(AppointmentStatus.CANCELLED_BY_BARBER);
+		appointmentRepository.save(appointment);
+
+		return appointmentMapper.toResponseDto(appointment);
+	}
+
+	@Override
+	public AppointmentResponseDto cancelAppointmentByCustomer(Long id) {
+		Appointment appointment = appointmentRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("Appointment not found"));
+		appointment.setStatus(AppointmentStatus.CANCELLED_BY_CUSTOMER);
+		appointmentRepository.save(appointment);
+
+		return appointmentMapper.toResponseDto(appointment);
 	}
 
 	@Override

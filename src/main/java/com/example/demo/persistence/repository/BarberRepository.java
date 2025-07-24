@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface BarberRepository extends JpaRepository<Barber, Long> {}
+public interface BarberRepository extends JpaRepository<Barber, Long> {
+	Optional<Barber> findByUserId(Long userId);
+}

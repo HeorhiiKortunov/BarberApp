@@ -26,9 +26,7 @@ public class UserController {
 
 	@GetMapping("/me")
 	public ResponseEntity<UserResponseDto> findMyProfile(@AuthenticationPrincipal UserPrincipal principal){
-		return userService.findById(principal.getUserId())
-				.map(ResponseEntity::ok)
-				.orElse(ResponseEntity.notFound().build());
+		return ResponseEntity.ok(userService.findById(principal.getUserId()));
 	}
 
 	@PutMapping("/me")

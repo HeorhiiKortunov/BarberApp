@@ -9,10 +9,12 @@ import java.util.Optional;
 
 public interface AppointmentService {
 	List<AppointmentResponseDto> findAllAppointments();
-	Optional<AppointmentResponseDto> findById(long id);
+	AppointmentResponseDto findById(long id);
 	List<AppointmentResponseDto> findByBarberId(long id);
-	Optional<AppointmentResponseDto> findByCustomerId(long id);
+	AppointmentResponseDto findByCustomerId(long id);
 	AppointmentResponseDto createAppointment(CreateAppointmentDto dto);
 	AppointmentResponseDto updateAppointment(long id, UpdateAppointmentDto dto);
+	AppointmentResponseDto cancelAppointmentByBarber(Long id);
+	AppointmentResponseDto cancelAppointmentByCustomer(Long id);
 	void deleteAppointment(long id);
 }

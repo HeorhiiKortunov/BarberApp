@@ -3,6 +3,7 @@ package com.example.demo.service.impl;
 import com.example.demo.api.dto.request.barber.CreateBarberDto;
 import com.example.demo.api.dto.request.barber.UpdateBarberDto;
 import com.example.demo.api.dto.response.barber.BarberResponseDto;
+import com.example.demo.exeption.ResourceNotFoundException;
 import com.example.demo.mapper.BarberMapper;
 import com.example.demo.persistence.entity.Barber;
 import com.example.demo.persistence.entity.User;
@@ -37,14 +38,15 @@ public class BarberServiceImpl implements BarberService {
 	}
 
 	@Override
-	public Optional<BarberResponseDto> findById(long id) {
-		return barberRepository.findById(id).map(barberMapper::toResponseDto);
+	public BarberResponseDto findById(long id) {
+		return barberRepository.findById(id).map(barberMapper::toResponseDto)
+				.orElseThrow(() -> new ResourceNotFoundException("Barber not found"));
 	}
 
 	@Override
 	public BarberResponseDto updateBarber(long id, UpdateBarberDto dto) {
 		Barber barber = barberRepository.findById(id)
-				.orElseThrow(() -> new RuntimeException("Barber not found"));
+				.orElseThrow(() -> new ResourceNotFoundException("Barber not found"));
 
 		barberMapper.updateBarberFromDto(barber, dto);
 		Barber savedBarber = barberRepository.save(barber);
@@ -57,6 +59,12 @@ public class BarberServiceImpl implements BarberService {
 		Barber barber = barberMapper.fromCreateDto(dto);
 		Barber savedBarber = barberRepository.save(barber);
 		return barberMapper.toResponseDto(savedBarber);
+	}
+
+	@Override
+	public BarberResponseDto findByUserId(long id) {
+		return barberRepository.findByUserId(id).map(barberMapper::toResponseDto)
+				.orElseThrow(() -> new ResourceNotFoundException("Barber not found"));
 	}
 
 	@Override

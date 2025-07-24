@@ -10,7 +10,9 @@ import com.example.demo.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -22,9 +24,7 @@ public class AdminController {
 
 	@GetMapping("/user/{id}")
 	public ResponseEntity<UserResponseDto> findUser(@PathVariable Long id) {
-		return userService.findById(id)
-				.map(ResponseEntity::ok)
-				.orElse(ResponseEntity.notFound().build());
+		return ResponseEntity.ok(userService.findById(id));
 	}
 
 	@GetMapping("/user")
@@ -45,9 +45,7 @@ public class AdminController {
 
 	@GetMapping("/barber/{id}")
 	public ResponseEntity<BarberResponseDto> findBarber(@PathVariable Long id){
-		return barberService.findById(id)
-				.map(ResponseEntity::ok)
-				.orElse(ResponseEntity.notFound().build());
+		return ResponseEntity.ok(barberService.findById(id));
 	}
 
 	@GetMapping("/barber")
@@ -57,7 +55,15 @@ public class AdminController {
 
 	@PostMapping("/barber")
 	public ResponseEntity<BarberResponseDto> createBarber(@RequestBody CreateBarberDto dto){
-		return ResponseEntity.ok(barberService.createBarber(dto));
+		BarberResponseDto createdBarber = barberService.createBarber(dto);
+
+		URI location = ServletUriComponentsBuilder
+				.fromCurrentRequest()
+				.path("/barber/{id}")
+				.buildAndExpand(createdBarber.id())
+				.toUri();
+
+		return ResponseEntity.created(location).body(createdBarber);
 	}
 
 	@PatchMapping("/barber/{id}")

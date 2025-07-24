@@ -3,6 +3,7 @@ package com.example.demo.service.impl;
 import com.example.demo.api.dto.request.user.CreateUserDto;
 import com.example.demo.api.dto.request.user.UpdateUserDto;
 import com.example.demo.api.dto.response.user.UserResponseDto;
+import com.example.demo.exeption.ResourceNotFoundException;
 import com.example.demo.mapper.UserMapper;
 import com.example.demo.persistence.entity.User;
 import com.example.demo.persistence.repository.UserRepository;
@@ -26,14 +27,15 @@ public class UserServiceImpl implements UserService {
 	private final PasswordEncoder passwordEncoder;
 
 	@Override
-	public Optional<UserResponseDto> findById(long id) {
-		return userRepository.findById(id).map(userMapper::toResponseDto);
+	public UserResponseDto findById(long id) {
+		return userRepository.findById(id).map(userMapper::toResponseDto)
+				.orElseThrow(() -> new ResourceNotFoundException("User not found"));
 	}
 
 	@Override
 	public UserResponseDto updateUser(long id, UpdateUserDto dto) {
 		User user = userRepository.findById(id)
-				.orElseThrow(() -> new RuntimeException("User not found"));
+				.orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
 		userMapper.updateEntityFromDto(user, dto);
 		User savedUser = userRepository.save(user);
