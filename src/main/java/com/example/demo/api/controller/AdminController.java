@@ -59,7 +59,7 @@ public class AdminController {
 
 		URI location = ServletUriComponentsBuilder
 				.fromCurrentRequest()
-				.path("/barber/{id}")
+				.path("/{id}")
 				.buildAndExpand(createdBarber.id())
 				.toUri();
 

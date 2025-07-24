@@ -3,10 +3,9 @@ package com.example.demo.service.impl;
 import com.example.demo.api.dto.request.barber.CreateBarberDto;
 import com.example.demo.api.dto.request.barber.UpdateBarberDto;
 import com.example.demo.api.dto.response.barber.BarberResponseDto;
-import com.example.demo.exeption.ResourceNotFoundException;
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.mapper.BarberMapper;
 import com.example.demo.persistence.entity.Barber;
-import com.example.demo.persistence.entity.User;
 import com.example.demo.persistence.repository.BarberRepository;
 import com.example.demo.persistence.repository.UserRepository;
 import com.example.demo.service.BarberService;
@@ -14,10 +13,7 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional

@@ -21,16 +21,17 @@ import java.util.List;
 @Controller
 @RequestMapping("/api/schedule")
 @AllArgsConstructor
+//For barber controlling his schedule
 public class ScheduleController {
-	private AppointmentService  appointmentService;
-	private BarberService barberService;
+	private final AppointmentService  appointmentService;
+	private final BarberService barberService;
 
 	@GetMapping("/my")
 	public ResponseEntity<List<AppointmentResponseDto>> findMyAppointments(@AuthenticationPrincipal UserPrincipal principal){
 		return ResponseEntity.ok(appointmentService.findByBarberId(barberService.findByUserId(principal.getUserId()).id()));
 	}
 
-	@PatchMapping("/cancel/{id}")
+	@PatchMapping("/{id}")
 	public ResponseEntity<AppointmentResponseDto> cancelAppointment(@PathVariable Long id){
 		appointmentService.cancelAppointmentByBarber(id);
 		return ResponseEntity.ok(appointmentService.findById(id));

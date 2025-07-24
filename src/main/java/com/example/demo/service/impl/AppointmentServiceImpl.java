@@ -4,19 +4,16 @@ import com.example.demo.api.dto.request.appointment.CreateAppointmentDto;
 import com.example.demo.api.dto.request.appointment.UpdateAppointmentDto;
 import com.example.demo.api.dto.response.appointment.AppointmentResponseDto;
 import com.example.demo.enums.AppointmentStatus;
-import com.example.demo.exeption.ResourceNotFoundException;
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.mapper.AppointmentMapper;
 import com.example.demo.persistence.entity.Appointment;
 import com.example.demo.persistence.repository.AppointmentRepository;
-import com.example.demo.persistence.repository.BarberRepository;
-import com.example.demo.persistence.repository.UserRepository;
 import com.example.demo.service.AppointmentService;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
