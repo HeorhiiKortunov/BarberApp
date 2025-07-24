@@ -60,7 +60,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 	@Override
 	public AppointmentResponseDto updateAppointment(long id, UpdateAppointmentDto dto) {
 		Appointment appointment = appointmentRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
-		if (dto.getAppointmentDateTme() != null) appointment.setAppointmentDateTime(dto.getAppointmentDateTme());
+		appointmentMapper.updateAppointmentFromDto(appointment, dto);
 		Appointment savedAppointment = appointmentRepository.save(appointment);
 
 		return appointmentMapper.toResponseDto(savedAppointment);

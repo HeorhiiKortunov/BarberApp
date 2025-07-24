@@ -26,6 +26,7 @@ public class AppointmentMapper {
 		appointment.setBarber(barber);
 		appointment.setCustomer(customer);
 		appointment.setAppointmentDateTime(dto.appointmentDateTime());
+		appointment.setStatus(dto.status());
 
 		return appointment;
 	}
@@ -35,11 +36,13 @@ public class AppointmentMapper {
 				appointment.getId(),
 				appointment.getBarber().getId(),
 				appointment.getCustomer().getId(),
-				appointment.getAppointmentDateTime()
+				appointment.getAppointmentDateTime(),
+				appointment.getStatus()
 		);
 	}
 
 	public void updateAppointmentFromDto(Appointment appointment, UpdateAppointmentDto dto){
-		if(dto.getAppointmentDateTme() != null) appointment.setAppointmentDateTime(dto.getAppointmentDateTme()); ;
+		if(dto.getAppointmentDateTme() != null) appointment.setAppointmentDateTime(dto.getAppointmentDateTme());
+		if(dto.getStatus() != null) appointment.setStatus(dto.getStatus());
 	}
 }

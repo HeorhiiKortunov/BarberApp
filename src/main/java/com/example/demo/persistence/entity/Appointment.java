@@ -1,5 +1,6 @@
 package com.example.demo.persistence.entity;
 
+import com.example.demo.enums.AppointmentStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,4 +31,7 @@ public class Appointment {
 
 	@Column(nullable = false)
 	private LocalDateTime appointmentDateTime;
+
+	@Enumerated(EnumType.STRING)
+	private AppointmentStatus status = AppointmentStatus.ACTIVE;
 }

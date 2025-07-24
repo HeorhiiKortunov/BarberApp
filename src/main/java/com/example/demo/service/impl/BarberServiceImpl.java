@@ -46,8 +46,7 @@ public class BarberServiceImpl implements BarberService {
 		Barber barber = barberRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("Barber not found"));
 
-		if(dto.getBio() != null) barber.setBio(dto.getBio());
-		if(dto.getPrice() != null) barber.setPrice(dto.getPrice());
+		barberMapper.updateBarberFromDto(barber, dto);
 		Barber savedBarber = barberRepository.save(barber);
 
 		return barberMapper.toResponseDto(savedBarber);
