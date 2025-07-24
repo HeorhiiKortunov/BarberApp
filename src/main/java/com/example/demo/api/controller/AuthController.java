@@ -5,8 +5,14 @@ import com.example.demo.api.dto.request.user.CreateUserDto;
 import com.example.demo.api.dto.response.auth.LoginResponse;
 import com.example.demo.api.dto.response.user.UserResponseDto;
 import com.example.demo.security.JwtIssuer;
+import com.example.demo.security.UserPrincipal;
 import com.example.demo.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,30 +24,33 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/auth")
+@RequiredArgsConstructor
 public class AuthController {
 	private final JwtIssuer jwtIssuer;
-
-	public AuthController(JwtIssuer jwtIssuer) {
-		this.jwtIssuer = jwtIssuer;
-	}
+	private final AuthenticationManager authenticationManager;
+	private final UserService userService;
 
 	@PostMapping("/login")
 	public LoginResponse login(@RequestBody @Validated LoginRequest request){
-		var token = jwtIssuer.issue(1L, request.username(), List.of("ROLE_USER"));
+		var authentication = authenticationManager.authenticate(
+				new UsernamePasswordAuthenticationToken(request.username(), request.password())
+		);
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		var principal = (UserPrincipal) authentication.getPrincipal();
+
+		var roles = principal.getAuthorities().stream()
+				.map(GrantedAuthority::getAuthority)
+				.toList();
+
+		var token = jwtIssuer.issue(principal.getUserId(), principal.getUsername(), roles);
 		return new LoginResponse(token);
 	}
 
-}
-//	private final UserService userService;
-//
-//	public AuthController(UserService userService) {
-//		this.userService = userService;
-//	}
-//
-//	@PostMapping
-//	public ResponseEntity<UserResponseDto> createUser(@RequestBody CreateUserDto dto){
-//		UserResponseDto responseDto = userService.createUser(dto);
-//		URI location = URI.create("/api/user/" + responseDto.id());
-//		return ResponseEntity.created(location).body(responseDto);
-//	}
+	@PostMapping("/register")
+	public ResponseEntity<UserResponseDto> register(@RequestBody @Validated CreateUserDto dto){
+		UserResponseDto responseDto = userService.createUser(dto);
+		URI location = URI.create("/api/user/" + responseDto.id());
+		return ResponseEntity.created(location).body(responseDto);
+	}
 
+}

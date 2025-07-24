@@ -9,6 +9,7 @@ import com.example.demo.persistence.repository.UserRepository;
 import com.example.demo.service.UserService;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public class UserServiceImpl implements UserService {
 
 	private final UserRepository userRepository;
 	private final UserMapper userMapper;
+	private final PasswordEncoder passwordEncoder;
 
 	@Override
 	public Optional<UserResponseDto> findById(long id) {
@@ -49,8 +51,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserResponseDto createUser(CreateUserDto dto) {
-		//TODO: encrypt password
-		User user = userMapper.fromCreateDto(dto, dto.password());
+		User user = userMapper.fromCreateDto(dto, passwordEncoder.encode(dto.password()));
 		User savedUser = userRepository.save(user);
 		return userMapper.toResponseDto(savedUser);
 	}
