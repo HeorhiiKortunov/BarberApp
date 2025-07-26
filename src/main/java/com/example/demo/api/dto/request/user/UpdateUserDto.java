@@ -11,5 +11,6 @@ public class UpdateUserDto {
 	private String email;
 	private String phone;
 	private Boolean enabled;
+	private String role;
 
 }

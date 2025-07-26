@@ -7,9 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
 @Table(name = "users")
 @Getter
@@ -30,9 +27,7 @@ public class User {
 	private String email;
 	private String phone;
 	private boolean enabled;
-
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<Authority> authorities = new ArrayList<>();
+	private String authority;
 
 	@OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
 	private Appointment customerAppointment;

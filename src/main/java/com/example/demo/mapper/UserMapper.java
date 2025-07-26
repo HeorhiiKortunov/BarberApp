@@ -3,11 +3,9 @@ package com.example.demo.mapper;
 import com.example.demo.api.dto.request.user.CreateUserDto;
 import com.example.demo.api.dto.request.user.UpdateUserDto;
 import com.example.demo.api.dto.response.user.UserResponseDto;
-import com.example.demo.persistence.entity.Authority;
 import com.example.demo.persistence.entity.User;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 
 @Component
 public class UserMapper {
@@ -19,13 +17,12 @@ public class UserMapper {
 		user.setPhone(dto.phone());
 		user.setPassword(encodedPassword);
 		user.setEnabled(true);
-		List<Authority> authorities = (dto.authorities() != null && !dto.authorities().isEmpty())
-				? dto.authorities().stream()
-				.map(roleName -> new Authority(null, roleName, user))
-				.toList()
-				: List.of(new Authority(null, "ROLE_CUSTOMER", user));
+		if (dto.authority() == null) {
+			user.setAuthority("ROLE_USER");
+		} else {
+			user.setAuthority(dto.authority());
+		}
 
-		user.setAuthorities(authorities);
 		return user;
 	}
 
@@ -35,7 +32,8 @@ public class UserMapper {
 				user.getUsername(),
 				user.getEmail(),
 				user.getPhone(),
-				user.isEnabled()
+				user.isEnabled(),
+				user.getAuthority()
 		);
 	}
 
@@ -43,5 +41,6 @@ public class UserMapper {
 		if (dto.getEmail() != null) user.setEmail(dto.getEmail());
 		if (dto.getPhone() != null) user.setPhone(dto.getPhone());
 		if (dto.getEnabled() != null) user.setEnabled(dto.getEnabled());
+		if (dto.getRole() != null) user.setAuthority(dto.getRole());
 	}
 }
