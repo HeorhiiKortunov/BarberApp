@@ -6,6 +6,8 @@ import com.example.demo.api.dto.response.user.UserResponseDto;
 import com.example.demo.persistence.entity.User;
 import org.springframework.stereotype.Component;
 
+import static com.example.demo.enums.Role.ROLE_USER;
+
 
 @Component
 public class UserMapper {
@@ -17,7 +19,7 @@ public class UserMapper {
 		user.setPhone(dto.phone());
 		user.setPassword(encodedPassword);
 		user.setEnabled(true);
-		user.setAuthority("ROLE_USER");
+		user.setRole(ROLE_USER);
 
 		return user;
 	}
@@ -29,7 +31,7 @@ public class UserMapper {
 				user.getEmail(),
 				user.getPhone(),
 				user.isEnabled(),
-				user.getAuthority()
+				user.getRole()
 		);
 	}
 
@@ -37,6 +39,6 @@ public class UserMapper {
 		if (dto.getEmail() != null) user.setEmail(dto.getEmail());
 		if (dto.getPhone() != null) user.setPhone(dto.getPhone());
 		if (dto.getEnabled() != null) user.setEnabled(dto.getEnabled());
-		if (dto.getRole() != null) user.setAuthority(dto.getRole());
+		if (dto.getRole() != null) user.setRole(dto.getRole());
 	}
 }

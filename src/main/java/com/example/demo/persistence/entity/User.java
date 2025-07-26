@@ -1,5 +1,6 @@
 package com.example.demo.persistence.entity;
 
+import com.example.demo.enums.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -27,7 +28,9 @@ public class User {
 	private String email;
 	private String phone;
 	private boolean enabled;
-	private String authority;
+
+	@Enumerated(EnumType.STRING)
+	private Role role;
 
 	@OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
 	private Appointment customerAppointment;

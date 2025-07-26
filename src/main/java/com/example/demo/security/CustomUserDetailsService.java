@@ -20,7 +20,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 		var user = userRepository.findByUsername(username)
 				.orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-		var roles =new SimpleGrantedAuthority(user.getAuthority());
+		var roles =new SimpleGrantedAuthority(user.getRole().name());
 
 		return UserPrincipal.builder()
 				.userId(user.getId())

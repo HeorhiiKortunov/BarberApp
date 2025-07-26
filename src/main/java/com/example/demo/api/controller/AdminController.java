@@ -5,6 +5,7 @@ import com.example.demo.api.dto.request.barber.UpdateBarberDto;
 import com.example.demo.api.dto.request.user.UpdateUserDto;
 import com.example.demo.api.dto.response.barber.BarberResponseDto;
 import com.example.demo.api.dto.response.user.UserResponseDto;
+import com.example.demo.enums.Role;
 import com.example.demo.service.BarberService;
 import com.example.demo.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+
+import static com.example.demo.enums.Role.ROLE_BARBER;
 
 @RestController
 @RequestMapping("/api/admin")
@@ -38,8 +41,8 @@ public class AdminController {
 	}
 
 	@PutMapping("/admin/users/{id}/role")
-	public ResponseEntity<UserResponseDto> updateUserRole(@PathVariable Long id, @RequestBody String authority) {
-		return ResponseEntity.ok(userService.updateUserRole(id, authority));
+	public ResponseEntity<UserResponseDto> updateUserRole(@PathVariable Long id, @RequestBody Role role) {
+		return ResponseEntity.ok(userService.updateUserRole(id, role));
 	}
 
 	@DeleteMapping("/user/{id}")
@@ -61,7 +64,7 @@ public class AdminController {
 	@PostMapping("/barber")
 	public ResponseEntity<BarberResponseDto> createBarber(@RequestBody CreateBarberDto dto){
 		BarberResponseDto createdBarber = barberService.createBarber(dto);
-		userService.updateUserRole(dto.userId(), "ROLE_BARBER");
+		userService.updateUserRole(dto.userId(), ROLE_BARBER);
 
 		URI location = ServletUriComponentsBuilder
 				.fromCurrentRequest()

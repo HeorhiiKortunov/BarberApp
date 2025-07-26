@@ -3,6 +3,7 @@ package com.example.demo.service.impl;
 import com.example.demo.api.dto.request.user.CreateUserDto;
 import com.example.demo.api.dto.request.user.UpdateUserDto;
 import com.example.demo.api.dto.response.user.UserResponseDto;
+import com.example.demo.enums.Role;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.mapper.UserMapper;
 import com.example.demo.persistence.entity.User;
@@ -47,11 +48,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserResponseDto updateUserRole(Long userId, String newRole) {
+	public UserResponseDto updateUserRole(Long userId, Role newRole) {
 		var user = userRepository.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
-		user.setAuthority(newRole);
+		user.setRole(newRole);
 		return userMapper.toResponseDto(userRepository.save(user));
 	}
 
