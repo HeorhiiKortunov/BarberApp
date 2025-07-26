@@ -6,6 +6,7 @@ import com.example.demo.api.dto.response.auth.LoginResponse;
 import com.example.demo.api.dto.response.user.UserResponseDto;
 import com.example.demo.security.JwtIssuer;
 import com.example.demo.security.UserPrincipal;
+import com.example.demo.service.AuthService;
 import com.example.demo.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -26,24 +27,12 @@ import java.net.URI;
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class AuthController {
-	private final JwtIssuer jwtIssuer;
-	private final AuthenticationManager authenticationManager;
+	private final AuthService authService;
 	private final UserService userService;
 
 	@PostMapping("/login")
 	public LoginResponse login(@RequestBody @Validated LoginRequest request){
-		var authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(request.username(), request.password())
-		);
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-		var principal = (UserPrincipal) authentication.getPrincipal();
-
-		var roles = principal.getAuthorities().stream()
-				.map(GrantedAuthority::getAuthority)
-				.toList();
-
-		var token = jwtIssuer.issue(principal.getUserId(), principal.getUsername(), roles);
-		return new LoginResponse(token);
+		return authService.attemptLogin(request.username(), request.password());
 	}
 
 	@PostMapping("/register")

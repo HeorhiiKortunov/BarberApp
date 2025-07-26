@@ -51,16 +51,6 @@ public class AdminController {
 		return ResponseEntity.noContent().build();
 	}
 
-	@GetMapping("/barber/{id}")
-	public ResponseEntity<BarberResponseDto> findBarber(@PathVariable Long id){
-		return ResponseEntity.ok(barberService.findById(id));
-	}
-
-	@GetMapping("/barber")
-	public ResponseEntity<List<BarberResponseDto>> findAllBarbers(){
-		return ResponseEntity.ok(barberService.findAllBarbers());
-	}
-
 	@PostMapping("/barber")
 	public ResponseEntity<BarberResponseDto> createBarber(@RequestBody CreateBarberDto dto){
 		BarberResponseDto createdBarber = barberService.createBarber(dto);

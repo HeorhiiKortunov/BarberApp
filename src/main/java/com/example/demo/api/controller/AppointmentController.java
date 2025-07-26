@@ -2,6 +2,7 @@ package com.example.demo.api.controller;
 
 import com.example.demo.api.dto.request.appointment.CreateAppointmentDto;
 import com.example.demo.api.dto.response.appointment.AppointmentResponseDto;
+import com.example.demo.api.dto.response.barber.BarberResponseDto;
 import com.example.demo.security.UserPrincipal;
 import com.example.demo.service.AppointmentService;
 import com.example.demo.service.BarberService;
@@ -14,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/appointment")
@@ -51,6 +53,16 @@ public class AppointmentController {
 	public ResponseEntity<AppointmentResponseDto> cancelAppointment(@PathVariable Long id){
 		appointmentService.cancelAppointmentByCustomer(id);
 		return ResponseEntity.ok(appointmentService.findById(id));
+	}
+
+	@GetMapping("/barber/{id}")
+	public ResponseEntity<BarberResponseDto> findBarber(@PathVariable Long id){
+		return ResponseEntity.ok(barberService.findById(id));
+	}
+
+	@GetMapping("/barber")
+	public ResponseEntity<List<BarberResponseDto>> findAllBarbers(){
+		return ResponseEntity.ok(barberService.findAllBarbers());
 	}
 
 
