@@ -17,11 +17,7 @@ public class UserMapper {
 		user.setPhone(dto.phone());
 		user.setPassword(encodedPassword);
 		user.setEnabled(true);
-		if (dto.authority() == null) {
-			user.setAuthority("ROLE_USER");
-		} else {
-			user.setAuthority(dto.authority());
-		}
+		user.setAuthority("ROLE_USER");
 
 		return user;
 	}

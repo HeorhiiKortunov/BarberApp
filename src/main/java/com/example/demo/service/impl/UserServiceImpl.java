@@ -42,6 +42,20 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public void deleteById(long id) {
+		userRepository.deleteById(id);
+	}
+
+	@Override
+	public UserResponseDto updateUserRole(Long userId, String newRole) {
+		var user = userRepository.findById(userId)
+				.orElseThrow(() -> new ResourceNotFoundException("User not found"));
+
+		user.setAuthority(newRole);
+		return userMapper.toResponseDto(userRepository.save(user));
+	}
+
+	@Override
 	public List<UserResponseDto> findAllUsers() {
 		return userRepository.findAll()
 				.stream()
@@ -56,8 +70,4 @@ public class UserServiceImpl implements UserService {
 		return userMapper.toResponseDto(savedUser);
 	}
 
-	@Override
-	public void deleteById(long id) {
-		userRepository.deleteById(id);
-	}
 }

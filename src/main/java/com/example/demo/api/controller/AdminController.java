@@ -37,6 +37,11 @@ public class AdminController {
 		return ResponseEntity.ok(userService.updateUser(id, dto));
 	}
 
+	@PutMapping("/admin/users/{id}/role")
+	public ResponseEntity<UserResponseDto> updateUserRole(@PathVariable Long id, @RequestBody String authority) {
+		return ResponseEntity.ok(userService.updateUserRole(id, authority));
+	}
+
 	@DeleteMapping("/user/{id}")
 	public ResponseEntity<Void> deleteUser(@PathVariable Long id){
 		userService.deleteById(id);
@@ -56,6 +61,7 @@ public class AdminController {
 	@PostMapping("/barber")
 	public ResponseEntity<BarberResponseDto> createBarber(@RequestBody CreateBarberDto dto){
 		BarberResponseDto createdBarber = barberService.createBarber(dto);
+		userService.updateUserRole(dto.userId(), "ROLE_BARBER");
 
 		URI location = ServletUriComponentsBuilder
 				.fromCurrentRequest()

@@ -11,6 +11,7 @@ import java.util.Optional;
 public interface UserService {
     UserResponseDto findById(long id);
 	UserResponseDto updateUser(long id, UpdateUserDto dto);
+	UserResponseDto updateUserRole(Long userId, String newRole);
     List<UserResponseDto> findAllUsers();
     UserResponseDto createUser(CreateUserDto dto);
 	void deleteById(long id);
