@@ -31,11 +31,15 @@ public class WebSecurityConfig {
 						.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.formLogin(AbstractHttpConfigurer::disable)
 				.securityMatcher("/api/**")
-				.authorizeHttpRequests(registry -> registry
-						.requestMatchers("/").permitAll()
-						.requestMatchers("/api/auth/login").permitAll()
-						.requestMatchers("/api/auth/register").permitAll()
-						.anyRequest().authenticated());
+				.authorizeHttpRequests(auth -> auth
+						.requestMatchers("/api/auth/**").permitAll()
+						.requestMatchers("/api/user/**").hasAnyRole("USER", "BARBER", "ADMIN")
+						.requestMatchers("/api/appointment/**").hasAnyRole("USER", "BARBER", "ADMIN")
+						.requestMatchers("/api/barber/**").hasAnyRole("BARBER", "ADMIN")
+						.requestMatchers("/api/schedule/**").hasAnyRole("BARBER", "ADMIN")
+						.requestMatchers("/api/admin/**").hasRole("ADMIN")
+						.anyRequest().authenticated()
+				);
 
 		return http.build();
 	}
