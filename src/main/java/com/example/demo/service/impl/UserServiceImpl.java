@@ -5,6 +5,7 @@ import com.example.demo.api.dto.request.user.UpdateUserDto;
 import com.example.demo.api.dto.response.user.UserResponseDto;
 import com.example.demo.enums.Role;
 import com.example.demo.exception.ResourceNotFoundException;
+import com.example.demo.exception.UsernameAlreadyExistsException;
 import com.example.demo.mapper.UserMapper;
 import com.example.demo.persistence.entity.User;
 import com.example.demo.persistence.repository.UserRepository;
@@ -33,11 +34,11 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserResponseDto updateUser(long id, UpdateUserDto dto) {
-		User user = userRepository.findById(id)
+		var user = userRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
 		userMapper.updateEntityFromDto(user, dto);
-		User savedUser = userRepository.save(user);
+		var savedUser = userRepository.save(user);
 
 		return userMapper.toResponseDto(savedUser);
 	}
@@ -66,8 +67,11 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserResponseDto createUser(CreateUserDto dto) {
-		User user = userMapper.fromCreateDto(dto, passwordEncoder.encode(dto.password()));
-		User savedUser = userRepository.save(user);
+		if (userRepository.existsByUsername(dto.username())) {
+			throw new UsernameAlreadyExistsException("Username already taken");
+		}
+		var user = userMapper.fromCreateDto(dto, passwordEncoder.encode(dto.password()));
+		var savedUser = userRepository.save(user);
 		return userMapper.toResponseDto(savedUser);
 	}
 

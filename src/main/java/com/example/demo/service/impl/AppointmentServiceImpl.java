@@ -60,16 +60,16 @@ public class AppointmentServiceImpl implements AppointmentService {
 
 	@Override
 	public AppointmentResponseDto updateAppointment(long id, UpdateAppointmentDto dto) {
-		Appointment appointment = appointmentRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+		var appointment = appointmentRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
 		appointmentMapper.updateAppointmentFromDto(appointment, dto);
-		Appointment savedAppointment = appointmentRepository.save(appointment);
+		var savedAppointment = appointmentRepository.save(appointment);
 
 		return appointmentMapper.toResponseDto(savedAppointment);
 	}
 
 	@Override
 	public AppointmentResponseDto cancelAppointmentByBarber(Long id) {
-		Appointment appointment = appointmentRepository.findById(id)
+		var appointment = appointmentRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("Appointment not found"));
 		appointment.setStatus(AppointmentStatus.CANCELLED_BY_BARBER);
 		appointmentRepository.save(appointment);
@@ -79,7 +79,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
 	@Override
 	public AppointmentResponseDto cancelAppointmentByCustomer(Long id) {
-		Appointment appointment = appointmentRepository.findById(id)
+		var appointment = appointmentRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("Appointment not found"));
 		appointment.setStatus(AppointmentStatus.CANCELLED_BY_CUSTOMER);
 		appointmentRepository.save(appointment);

@@ -41,19 +41,19 @@ public class BarberServiceImpl implements BarberService {
 
 	@Override
 	public BarberResponseDto updateBarber(long id, UpdateBarberDto dto) {
-		Barber barber = barberRepository.findById(id)
+		var barber = barberRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Barber not found"));
 
 		barberMapper.updateBarberFromDto(barber, dto);
-		Barber savedBarber = barberRepository.save(barber);
+		var savedBarber = barberRepository.save(barber);
 
 		return barberMapper.toResponseDto(savedBarber);
 	}
 
 	@Override
 	public BarberResponseDto createBarber(CreateBarberDto dto) {
-		Barber barber = barberMapper.fromCreateDto(dto);
-		Barber savedBarber = barberRepository.save(barber);
+		var barber = barberMapper.fromCreateDto(dto);
+		var savedBarber = barberRepository.save(barber);
 		return barberMapper.toResponseDto(savedBarber);
 	}
 
