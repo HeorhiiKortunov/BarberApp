@@ -44,6 +44,7 @@ class BarberServiceImplTest {
 		responseDto = mock(BarberResponseDto.class);
 	}
 
+	//tests for findAllBarbers
 	@Test
 	void whenFindAllBarbers_thenReturnListOfResponseDtos() {
 		Barber barber2 = new Barber();
@@ -59,6 +60,7 @@ class BarberServiceImplTest {
 		verify(barberMapper, times(2)).toResponseDto(any());
 	}
 
+	//tests for findById
 	@Test
 	void givenValidId_whenFindById_thenReturnResponseDto() {
 		when(barberRepository.findById(1L)).thenReturn(Optional.of(barber));
@@ -79,6 +81,7 @@ class BarberServiceImplTest {
 		verifyNoInteractions(barberMapper);
 	}
 
+	//tests for updateBarber
 	@Test
 	void givenValidId_whenUpdateBarber_thenReturnUpdatedDto() {
 		UpdateBarberDto dto = mock(UpdateBarberDto.class);
@@ -105,6 +108,7 @@ class BarberServiceImplTest {
 		verify(barberRepository, never()).save(any());
 	}
 
+	//tests for createBarber
 	@Test
 	void whenCreateBarber_thenReturnResponseDto() {
 		CreateBarberDto dto = mock(CreateBarberDto.class);
@@ -120,6 +124,8 @@ class BarberServiceImplTest {
 		verify(barberMapper).toResponseDto(barber);
 	}
 
+
+	//tests for findByUserId
 	@Test
 	void givenValidUserId_whenFindByUserId_thenReturnResponseDto() {
 		when(barberRepository.findByUserId(1L)).thenReturn(Optional.of(barber));
@@ -140,6 +146,7 @@ class BarberServiceImplTest {
 		verifyNoInteractions(barberMapper);
 	}
 
+	//tests for deleteById
 	@Test
 	void givenId_whenDeleteById_shouldCallRepositoryDelete() {
 		barberService.deleteById(1L);

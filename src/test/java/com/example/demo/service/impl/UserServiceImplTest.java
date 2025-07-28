@@ -58,6 +58,7 @@ class UserServiceImplTest {
 		userResponseDto = new UserResponseDto(1L, "john", "john@example.com", "123456", true, Role.ROLE_USER);
 	}
 
+	//tests for createUser
 	@Test
 	void givenValidDto_whenCreateUser_thenReturnResponseDto() {
 		when(passwordEncoder.encode(any())).thenReturn("encoded");
@@ -103,6 +104,7 @@ class UserServiceImplTest {
 		verify(userRepository, never()).save(any());
 	}
 
+	//tests for findById
 	@Test
 	void givenValidId_whenFindById_shouldReturnUserResponseDto() {
 		when(userRepository.findById(1L)).thenReturn(Optional.of(user));
@@ -124,6 +126,7 @@ class UserServiceImplTest {
 		verifyNoInteractions(userMapper);
 	}
 
+	//tests for updateUser
 	@Test
 	void givenValidId_whenUpdateUser_shouldReturnUserResponseDto() {
 		UpdateUserDto dto = new UpdateUserDto("newName", "1234", true, Role.ROLE_USER);
@@ -152,6 +155,7 @@ class UserServiceImplTest {
 		verify(userRepository).findById(1L);
 	}
 
+	//tests for deleteById
 	@Test
 	void givenValidId_whenDeleteById_shouldDelete() {
 		when(userRepository.existsById(1L)).thenReturn(true);
@@ -170,6 +174,7 @@ class UserServiceImplTest {
 		verify(userRepository, never()).deleteById(anyLong());
 	}
 
+	//tests for updateUserRole
 	@Test
 	void givenValidId_whenUpdateUserRole_shouldReturnResponseDto() {
 		when(userRepository.findById(1L)).thenReturn(Optional.of(user));
@@ -199,6 +204,7 @@ class UserServiceImplTest {
 		assertThrows(ResourceNotFoundException.class, () -> userService.updateUserRole(1L, Role.ROLE_BARBER));
 	}
 
+	//tests for findAllUsers
 	@Test
 	void whenFindAllUsers_shouldReturnListOfUserResponseDtos() {
 		User user2 = new User(); user2.setId(2L); user2.setUsername("Bob");
