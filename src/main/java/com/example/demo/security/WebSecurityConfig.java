@@ -19,6 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class WebSecurityConfig {
 	private final JwtAuthenticationFilter jwtAuthenticationFilter;
+	private final UnauthorizedHandler unauthorizedHandler;
 
 	@Bean
 	public SecurityFilterChain applicationSecurity(HttpSecurity http) throws Exception {
@@ -30,6 +31,9 @@ public class WebSecurityConfig {
 				.sessionManagement(session -> session
 						.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.formLogin(AbstractHttpConfigurer::disable)
+				.exceptionHandling(exception -> exception
+						.authenticationEntryPoint(unauthorizedHandler)
+				)
 				.securityMatcher("/api/**")
 				.authorizeHttpRequests(auth -> auth
 						.requestMatchers("/api/auth/**").permitAll()
