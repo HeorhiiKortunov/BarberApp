@@ -31,8 +31,8 @@ public class AuthController {
 	private final UserService userService;
 
 	@PostMapping("/login")
-	public LoginResponse login(@RequestBody @Validated LoginRequest request){
-		return authService.attemptLogin(request.username(), request.password());
+	public ResponseEntity<LoginResponse> login(@RequestBody @Validated LoginRequest request){
+		return ResponseEntity.ok(authService.attemptLogin(request.username(), request.password()));
 	}
 
 	@PostMapping("/register")

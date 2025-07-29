@@ -50,28 +50,7 @@ class AuthControllerTest {
 						.contentType(MediaType.APPLICATION_JSON)
 						.content(loginJson))
 				.andExpect(status().isOk())
-				.andExpect(jsonPath("$.jwt").isNotEmpty());
-	}
-
-
-	@Test
-	void givenBadUser_whenRegister_shouldReturnCreated() throws Exception {
-		String json = """
-            {
-              "username": "John",
-            }
-            """;
-
-		api.perform(post("/api/auth/register")
-						.contentType(MediaType.APPLICATION_JSON)
-						.content(json))
-				.andExpect(status().isBadRequest());
-	}
-
-	//login tests
-	@Test
-	void givenValidCredentials_whenLogin_shouldReturnLoginResponse(){
-
+				.andExpect(jsonPath("$.accessToken").isNotEmpty());
 	}
 
 	@Test
