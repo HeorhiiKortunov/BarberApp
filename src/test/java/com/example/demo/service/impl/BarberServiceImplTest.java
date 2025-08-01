@@ -7,7 +7,6 @@ import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.mapper.BarberMapper;
 import com.example.demo.persistence.entity.Barber;
 import com.example.demo.persistence.repository.BarberRepository;
-import com.example.demo.persistence.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

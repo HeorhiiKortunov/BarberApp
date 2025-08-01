@@ -1,16 +1,13 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.api.dto.response.auth.LoginResponse;
-import com.example.demo.enums.Role;
 import com.example.demo.security.JwtIssuer;
 import com.example.demo.security.UserPrincipal;
-import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

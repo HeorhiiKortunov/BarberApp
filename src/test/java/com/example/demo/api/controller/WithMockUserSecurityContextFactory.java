@@ -1,9 +1,7 @@
 package com.example.demo.api.controller;
 
-import com.example.demo.enums.Role;
 import com.example.demo.security.UserPrincipal;
 import com.example.demo.security.UserPrincipalAuthToken;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
